@@ -21,6 +21,7 @@
             --text-color: #636E72;
             --gradient: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
             --gradient-alt: linear-gradient(135deg, #40E87C 0%, #25D366 100%);
+            --phone-screen-bg: #22C55E;
         }
 
         body {
@@ -239,7 +240,7 @@
             left: 20px;
             right: 20px;
             bottom: 20px;
-            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            background: var(--phone-screen-bg);
             border-radius: 25px;
             display: flex;
             flex-direction: column;
@@ -523,38 +524,27 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div class="logo">
-                <svg width="40" height="40" viewBox="0 0 100 100" style="vertical-align: middle; margin-right: 8px;">
-                    <!-- Shopping cart -->
+            <a class="logo" href="https://play.google.com/store/apps/details?id=com.offermarket" target="_blank" rel="noopener noreferrer" title="Get the app on Google Play">
+                <svg width="40" height="40" viewBox="0 0 100 100" style="vertical-align: middle; margin-right: 8px; border-radius: 8px; background: #22C55E; padding: 6px;">
+                    <!-- White cart logo on green tile -->
                     <path d="M25 30 L30 25 Q32 23 35 25 L85 25 Q88 25 87 28 L80 55 Q79 58 76 58 L35 58 Q32 58 31 55 L25 30" 
-                          fill="none" stroke="url(#logoGradient)" stroke-width="3" stroke-linecap="round"/>
-                    <!-- Cart handle -->
+                          fill="none" stroke="white" stroke-width="5" stroke-linecap="round"/>
                     <path d="M20 25 Q18 23 20 21 Q22 19 24 21 L30 27" 
-                          fill="none" stroke="url(#logoGradient)" stroke-width="3" stroke-linecap="round"/>
-                    <!-- Cart wheels -->
-                    <circle cx="40" cy="70" r="5" fill="url(#logoGradient)"/>
-                    <circle cx="70" cy="70" r="5" fill="url(#logoGradient)"/>
-                    <!-- Discount badge -->
+                          fill="none" stroke="white" stroke-width="5" stroke-linecap="round"/>
+                    <circle cx="40" cy="70" r="6" fill="white"/>
+                    <circle cx="70" cy="70" r="6" fill="white"/>
                     <g transform="translate(55, 40)">
-                        <circle cx="0" cy="0" r="13" fill="white"/>
                         <path d="M-13,0 L-10,-8 L-5,-10 L0,-13 L5,-10 L10,-8 L13,0 L10,8 L5,10 L0,13 L-5,10 L-10,8 Z" 
-                              fill="url(#logoGradient)"/>
-                        <text x="0" y="1" text-anchor="middle" fill="white" font-size="14" font-weight="bold" font-family="Arial">%</text>
+                              fill="white"/>
+                        <text x="0" y="1" text-anchor="middle" fill="#22C55E" font-size="16" font-weight="bold" font-family="Arial">%</text>
                     </g>
-                    <!-- Gradient definition -->
-                    <defs>
-                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#25D366"/>
-                            <stop offset="100%" style="stop-color:#128C7E"/>
-                        </linearGradient>
-                    </defs>
                 </svg>
-                <span style="font-size: 1.8rem; font-weight: bold; background: linear-gradient(135deg, #25D366, #128C7E); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">OfferMarket</span>
-            </div>
+                <span style="font-size: 1.8rem; font-weight: bold; color: var(--dark-color);">OfferMarket</span>
+            </a>
             <div class="nav-links">
                 <a href="#features">Features</a>
                 <a href="#how-it-works">How It Works</a>
-                <a href="#roadmap">Roadmap</a>
+                <a href="https://play.google.com/store/apps/details?id=com.offermarket" target="_blank" rel="noopener noreferrer">Get the App</a>
                 <a href="#faq">FAQ</a>
                 <a href="#early-access" class="cta-button">Get Early Access</a>
             </div>
@@ -670,34 +660,7 @@
         </div>
     </section>
 
-    <!-- Development Roadmap -->
-    <section class="stats" id="roadmap">
-        <div class="container">
-            <h2 class="section-title" style="color: white; margin-bottom: 3rem;">Development Roadmap</h2>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <h3>Q1 2024</h3>
-                    <p>Beta Launch</p>
-                    <div style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem;">Private beta for early adopters</div>
-                </div>
-                <div class="stat-item">
-                    <h3>Q2 2024</h3>
-                    <p>Store Partnerships</p>
-                    <div style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem;">Onboarding major retailers</div>
-                </div>
-                <div class="stat-item">
-                    <h3>Q3 2024</h3>
-                    <p>Public Launch</p>
-                    <div style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem;">Full app release on all platforms</div>
-                </div>
-                <div class="stat-item">
-                    <h3>Q4 2024</h3>
-                    <p>AI Features</p>
-                    <div style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem;">Smart deal recommendations</div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- (Roadmap removed as requested) -->
 
     <!-- FAQ Section -->
     <section class="features" id="faq" style="background: white;">
