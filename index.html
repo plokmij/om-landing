@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OfferMarket - Find the Best Deals & Save Money on Every Purchase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #25D366;
+            --primary-dark: #1DA851;
+            --primary-light: #40E87C;
+            --secondary-color: #128C7E;
+            --dark-color: #2D3436;
+            --light-color: #F7FFF9;
+            --text-color: #636E72;
+            --gradient: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            --gradient-alt: linear-gradient(135deg, #40E87C 0%, #25D366 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #25D366, #1DA851);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            min-height: 90vh;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-60px, -60px); }
+        }
+
+        @keyframes cartBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .phone-screen svg {
+            animation: cartBounce 3s ease-in-out infinite;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .hero-text p {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            animation: slideInLeft 1s ease-out 0.2s both;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: slideInLeft 1s ease-out 0.4s both;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #25D366;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #25D366;
+        }
+
+        .hero-image {
+            position: relative;
+            animation: slideInRight 1s ease-out 0.6s both;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .phone-mockup {
+            width: 300px;
+            height: 600px;
+            background: white;
+            border-radius: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            position: relative;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .phone-screen {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+            background: #F0FFF4;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 3rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+            border-top: 3px solid #25D366;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(37, 211, 102, 0.2);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .feature-card h3 {
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .feature-card p {
+            color: var(--text-color);
+            line-height: 1.8;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1.5rem;
+        }
+
+        .step h3 {
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Statistics */
+        .stats {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 0;
+            background: #F0FFF4;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+        }
+
+        .app-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .app-button {
+            background: black;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .app-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 3rem 0 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .social-icon:hover {
+            background: #25D366;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-text p {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .phone-mockup {
+                width: 250px;
+                height: 500px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <svg width="40" height="40" viewBox="0 0 100 100" style="vertical-align: middle; margin-right: 8px;">
+                    <!-- Shopping cart -->
+                    <path d="M25 30 L30 25 Q32 23 35 25 L85 25 Q88 25 87 28 L80 55 Q79 58 76 58 L35 58 Q32 58 31 55 L25 30" 
+                          fill="none" stroke="url(#logoGradient)" stroke-width="3" stroke-linecap="round"/>
+                    <!-- Cart handle -->
+                    <path d="M20 25 Q18 23 20 21 Q22 19 24 21 L30 27" 
+                          fill="none" stroke="url(#logoGradient)" stroke-width="3" stroke-linecap="round"/>
+                    <!-- Cart wheels -->
+                    <circle cx="40" cy="70" r="5" fill="url(#logoGradient)"/>
+                    <circle cx="70" cy="70" r="5" fill="url(#logoGradient)"/>
+                    <!-- Discount badge -->
+                    <g transform="translate(55, 40)">
+                        <circle cx="0" cy="0" r="13" fill="white"/>
+                        <path d="M-13,0 L-10,-8 L-5,-10 L0,-13 L5,-10 L10,-8 L13,0 L10,8 L5,10 L0,13 L-5,10 L-10,8 Z" 
+                              fill="url(#logoGradient)"/>
+                        <text x="0" y="1" text-anchor="middle" fill="white" font-size="14" font-weight="bold" font-family="Arial">%</text>
+                    </g>
+                    <!-- Gradient definition -->
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#25D366"/>
+                            <stop offset="100%" style="stop-color:#128C7E"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span style="font-size: 1.8rem; font-weight: bold; background: linear-gradient(135deg, #25D366, #128C7E); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">OfferMarket</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#roadmap">Roadmap</a>
+                <a href="#faq">FAQ</a>
+                <a href="#early-access" class="cta-button">Get Early Access</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <span style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 20px; display: inline-block; margin-bottom: 1rem; font-weight: 600;">🚀 Coming Soon</span>
+                <h1>The Future of Smart Shopping is Almost Here!</h1>
+                <p>Be among the first to experience OfferMarket - your ultimate companion for finding the best local deals and weekly ads, all in one app.</p>
+                <div class="hero-buttons">
+                    <a href="#early-access" class="btn-primary">
+                        ✨ Get Early Access
+                    </a>
+                    <a href="#features" class="btn-secondary">
+                        📖 Learn More
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <svg width="120" height="120" viewBox="0 0 100 100" style="margin-bottom: 1rem;">
+                            <!-- Shopping cart -->
+                            <path d="M25 30 L30 25 Q32 23 35 25 L85 25 Q88 25 87 28 L80 55 Q79 58 76 58 L35 58 Q32 58 31 55 L25 30" 
+                                  fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                            <!-- Cart handle -->
+                            <path d="M20 25 Q18 23 20 21 Q22 19 24 21 L30 27" 
+                                  fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                            <!-- Cart wheels -->
+                            <circle cx="40" cy="70" r="5" fill="white"/>
+                            <circle cx="70" cy="70" r="5" fill="white"/>
+                            <!-- Discount badge -->
+                            <g transform="translate(55, 40)">
+                                <path d="M-13,0 L-10,-8 L-5,-10 L0,-13 L5,-10 L10,-8 L13,0 L10,8 L5,10 L0,13 L-5,10 L-10,8 Z" 
+                                      fill="white" stroke="white" stroke-width="0.5"/>
+                                <text x="0" y="1" text-anchor="middle" fill="#25D366" font-size="14" font-weight="bold" font-family="Arial">%</text>
+                            </g>
+                        </svg>
+                        <div style="font-size: 1.2rem; margin-top: 0.5rem;">OfferMarket</div>
+                        <div style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9;">Smart Shopping</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Features We're Building</h2>
+            <p class="section-subtitle">Get ready for a complete shopping experience that saves you time and money</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📰</div>
+                    <h3>Weekly Flyers</h3>
+                    <p>Browse digital flyers from all your favorite stores in one place. No more paper clutter!</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Personalized Deals</h3>
+                    <p>Get deals tailored to your shopping preferences and favorite brands automatically.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📍</div>
+                    <h3>Local Store Finder</h3>
+                    <p>Find deals at stores near you with our location-based search and store maps.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Price Match</h3>
+                    <p>Compare prices across multiple stores and find the best deals instantly.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📋</div>
+                    <h3>Shopping Lists</h3>
+                    <p>Create and organize shopping lists with automatic deal matching.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <h3>Deal Alerts</h3>
+                    <p>Never miss out! Get notifications when your favorite items go on sale.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Start saving in just 3 simple steps</p>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Download & Sign Up</h3>
+                    <p>Get the free OfferMarket app and create your account in seconds.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Set Your Preferences</h3>
+                    <p>Choose your favorite stores and categories to get personalized deals.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Start Saving</h3>
+                    <p>Browse deals, create lists, and save money on every shopping trip!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Development Roadmap -->
+    <section class="stats" id="roadmap">
+        <div class="container">
+            <h2 class="section-title" style="color: white; margin-bottom: 3rem;">Development Roadmap</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>Q1 2024</h3>
+                    <p>Beta Launch</p>
+                    <div style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem;">Private beta for early adopters</div>
+                </div>
+                <div class="stat-item">
+                    <h3>Q2 2024</h3>
+                    <p>Store Partnerships</p>
+                    <div style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem;">Onboarding major retailers</div>
+                </div>
+                <div class="stat-item">
+                    <h3>Q3 2024</h3>
+                    <p>Public Launch</p>
+                    <div style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem;">Full app release on all platforms</div>
+                </div>
+                <div class="stat-item">
+                    <h3>Q4 2024</h3>
+                    <p>AI Features</p>
+                    <div style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem;">Smart deal recommendations</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="features" id="faq" style="background: white;">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-subtitle">Everything you need to know about OfferMarket</p>
+            
+            <div style="max-width: 800px; margin: 3rem auto;">
+                <div class="faq-item" style="background: #E8F9EC; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem; border-left: 4px solid #25D366;">
+                    <h3 style="color: var(--dark-color); margin-bottom: 0.5rem; font-size: 1.2rem;">🤔 When will OfferMarket be available?</h3>
+                    <p style="color: var(--text-color); line-height: 1.6;">We're planning to launch our beta version in Q1 2024, with the full public release scheduled for Q3 2024. Sign up for early access to be among the first to try it!</p>
+                </div>
+                
+                <div class="faq-item" style="background: #E8F9EC; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem; border-left: 4px solid #25D366;">
+                    <h3 style="color: var(--dark-color); margin-bottom: 0.5rem; font-size: 1.2rem;">💰 Will OfferMarket be free to use?</h3>
+                    <p style="color: var(--text-color); line-height: 1.6;">Yes! OfferMarket will be completely free to download and use. We may offer optional premium features in the future for power users.</p>
+                </div>
+                
+                <div class="faq-item" style="background: #E8F9EC; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem; border-left: 4px solid #25D366;">
+                    <h3 style="color: var(--dark-color); margin-bottom: 0.5rem; font-size: 1.2rem;">📱 Which platforms will be supported?</h3>
+                    <p style="color: var(--text-color); line-height: 1.6;">OfferMarket will be available on iOS and Android devices at launch. We're also planning a web version for desktop users.</p>
+                </div>
+                
+                <div class="faq-item" style="background: #E8F9EC; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem; border-left: 4px solid #25D366;">
+                    <h3 style="color: var(--dark-color); margin-bottom: 0.5rem; font-size: 1.2rem;">🏪 Which stores will be included?</h3>
+                    <p style="color: var(--text-color); line-height: 1.6;">We're actively partnering with major grocery chains, department stores, pharmacies, and local retailers. Our goal is to include all major retailers by launch.</p>
+                </div>
+                
+                <div class="faq-item" style="background: #E8F9EC; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem; border-left: 4px solid #25D366;">
+                    <h3 style="color: var(--dark-color); margin-bottom: 0.5rem; font-size: 1.2rem;">🔒 How will you protect my data?</h3>
+                    <p style="color: var(--text-color); line-height: 1.6;">Privacy is our top priority. We use bank-level encryption to protect your data and never sell your personal information to third parties.</p>
+                </div>
+                
+                <div class="faq-item" style="background: #E8F9EC; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem; border-left: 4px solid #25D366;">
+                    <h3 style="color: var(--dark-color); margin-bottom: 0.5rem; font-size: 1.2rem;">🚀 How can I become a beta tester?</h3>
+                    <p style="color: var(--text-color); line-height: 1.6;">Sign up for early access above! We'll select beta testers from our early access list and invite them to test the app before public launch.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="early-access">
+        <div class="container">
+            <h2>Be Part of the Shopping Revolution</h2>
+            <p>Join our exclusive early access list and be the first to know when OfferMarket launches!</p>
+            
+            <div style="max-width: 500px; margin: 2rem auto;">
+                <form id="early-access-form" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <input type="email" placeholder="Enter your email address" required 
+                           style="padding: 1rem; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem; transition: border-color 0.3s;"
+                           onmouseover="this.style.borderColor='#25D366'" 
+                           onmouseout="this.style.borderColor='#e0e0e0'">
+                    <button type="submit" 
+                            style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: white; padding: 1rem 2rem; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: transform 0.3s;"
+                            onmouseover="this.style.transform='scale(1.05)'"
+                            onmouseout="this.style.transform='scale(1)'">
+                        🎉 Get Early Access
+                    </button>
+                </form>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: #999;">
+                    🔒 We respect your privacy. No spam, ever.
+                </p>
+            </div>
+
+            <div style="margin-top: 3rem; padding: 2rem; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <h3 style="color: var(--dark-color); margin-bottom: 1.5rem;">Early Access Benefits</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; text-align: left;">
+                    <div style="display: flex; align-items: start; gap: 0.5rem;">
+                        <span>✅</span>
+                        <span>Exclusive beta testing invitation</span>
+                    </div>
+                    <div style="display: flex; align-items: start; gap: 0.5rem;">
+                        <span>✅</span>
+                        <span>Lifetime premium features discount</span>
+                    </div>
+                    <div style="display: flex; align-items: start; gap: 0.5rem;">
+                        <span>✅</span>
+                        <span>Direct input on feature development</span>
+                    </div>
+                    <div style="display: flex; align-items: start; gap: 0.5rem;">
+                        <span>✅</span>
+                        <span>Priority customer support</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <p style="font-size: 1.1rem; margin-bottom: 1rem;">Follow our journey:</p>
+                <div class="social-icons" style="justify-content: center;">
+                    <a href="#" class="social-icon" style="width: 50px; height: 50px; background: #1877f2;">f</a>
+                    <a href="#" class="social-icon" style="width: 50px; height: 50px; background: #1da1f2;">𝕏</a>
+                    <a href="#" class="social-icon" style="width: 50px; height: 50px; background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);">i</a>
+                    <a href="#" class="social-icon" style="width: 50px; height: 50px; background: #0077b5;">in</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">About Us</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact</a>
+                <a href="#">Help Center</a>
+            </div>
+            <div class="social-icons">
+                <a href="#" class="social-icon">f</a>
+                <a href="#" class="social-icon">t</a>
+                <a href="#" class="social-icon">i</a>
+                <a href="#" class="social-icon">in</a>
+            </div>
+            <p style="opacity: 0.7;">© 2024 OfferMarket. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Floating scroll to top button with cart icon -->
+    <button id="scrollTop" style="position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: linear-gradient(135deg, #25D366, #128C7E); border: none; border-radius: 50%; cursor: pointer; display: none; z-index: 1000; box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3); transition: all 0.3s;">
+        <svg width="30" height="30" viewBox="0 0 100 100" style="fill: white;">
+            <path d="M25 40 L30 35 Q32 33 35 35 L75 35 Q78 35 77 38 L72 55 Q71 58 68 58 L35 58 Q32 58 31 55 L25 40" 
+                  fill="white"/>
+            <circle cx="40" cy="65" r="3" fill="white"/>
+            <circle cx="62" cy="65" r="3" fill="white"/>
+            <path d="M50 25 L50 15 M45 20 L50 15 L55 20" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+        </svg>
+    </button>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navigation and scroll-to-top button
+        const scrollTopBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+            } else {
+                nav.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            }
+            
+            // Show/hide scroll to top button
+            if (window.scrollY > 300) {
+                scrollTopBtn.style.display = 'block';
+                setTimeout(() => {
+                    scrollTopBtn.style.opacity = '1';
+                    scrollTopBtn.style.transform = 'scale(1)';
+                }, 10);
+            } else {
+                scrollTopBtn.style.opacity = '0';
+                scrollTopBtn.style.transform = 'scale(0.8)';
+                setTimeout(() => {
+                    scrollTopBtn.style.display = 'none';
+                }, 300);
+            }
+        });
+        
+        // Scroll to top functionality
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Hover effect for scroll-to-top button
+        scrollTopBtn.addEventListener('mouseover', function() {
+            this.style.transform = 'scale(1.1)';
+        });
+        scrollTopBtn.addEventListener('mouseout', function() {
+            this.style.transform = 'scale(1)';
+        });
+
+        // Handle early access form submission
+        document.getElementById('early-access-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            const button = this.querySelector('button');
+            const originalText = button.innerHTML;
+            
+            // Show loading state
+            button.innerHTML = '⏳ Processing...';
+            button.disabled = true;
+            
+            // Simulate API call (replace with actual API endpoint)
+            setTimeout(() => {
+                // Show success state
+                button.innerHTML = '✅ You\'re on the list!';
+                button.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                
+                // Reset form
+                this.querySelector('input[type="email"]').value = '';
+                
+                // Show success message
+                const successMsg = document.createElement('div');
+                successMsg.style.cssText = 'background: #10b981; color: white; padding: 1rem; border-radius: 10px; margin-top: 1rem; animation: slideInUp 0.5s ease';
+                successMsg.innerHTML = '🎉 Thank you for joining! Check your email for confirmation.';
+                this.parentElement.appendChild(successMsg);
+                
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.style.background = 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)';
+                    button.disabled = false;
+                    successMsg.remove();
+                }, 3000);
+            }, 1500);
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '0';
+                    entry.target.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        entry.target.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, 100);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe feature cards and steps
+        document.querySelectorAll('.feature-card, .step, .faq-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
